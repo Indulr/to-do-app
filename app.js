@@ -1,6 +1,6 @@
 function onReady() {
 
-  const toDos = [];
+  var toDos = [];
   const addToDoForm = document.getElementById('addToDoForm');
   let id = 0
 
@@ -35,7 +35,7 @@ function onReady() {
       del.addEventListener('click', event => {
         toDos = toDos.filter(function(item) {
           return item.id !== toDo.id;
-        })
+        });
         renderTheUI();
       });
       newLi.textContent = toDo.title;
