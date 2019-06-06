@@ -1,61 +1,37 @@
 function onReady() {
+  var addToDoForm = document.getElementById('addToDoForm');
+  var toDoList = document.getElementById('toDoList');
+  var newToDoText = document.getElementById('newToDoText');
 
-  var toDos = [];
-  const addToDoForm = document.getElementById('addToDoForm');
-  let id = 0
-
-  function createNewToDo() {
-    const newToDoText = document.getElementById('newToDoText');
-    if (!newToDoText.value) {
-      return;
-    }
-    toDos.push({
-      title: newToDoText.value,
-      complete: false,
-      id: id
-
-    });
-    id++;
-    newToDoText.value = '';
-    renderTheUI();
-
-  }
-
-  function renderTheUI() {
-    const toDoList = document.getElementById('toDoList');
-    toDoList.textContent = '';
-    toDos.forEach(function(toDo) {
-      const newLi = document.createElement('li');
-      const checkbox = document.createElement('input');
-      const del = document.createElement('Button');
-
-      del.textContent = "Delete";
-      checkbox.type = "checkbox";
-
-      del.addEventListener('click', event => {
-        toDos = toDos.filter(function(item) {
-          return item.id !== toDo.id;
-        });
-        renderTheUI();
-      });
-      newLi.textContent = toDo.title;
-      toDoList.appendChild(newLi);
-      newLi.appendChild(checkbox);
-      newLi.appendChild(del);
-
-
-
-    });
-
-
-  }
-  addToDoForm.addEventListener('submit', event => {
+  addToDoForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    createNewToDo();
+
+    var title = newToDoText.value;
+
+    var newLi = document.createElement('li');
+    var checkbox = document.createElement('input');
+    var del = document.createElement('button');
+
+    checkbox.type = "checkbox";
+
+    del.textContent = "Delete";
+
+    del.addEventListener('click', function(event){
+      toDoList.removeChild(this.parentElement);
+    })
+
+    newLi.textContent = title;
+    toDoList.appendChild(newLi);
+
+    newLi.appendChild(checkbox);
+
+    newLi.appendChild(del);
+    newToDoText.value = '';
+
+
+
   });
-  renderTheUI();
 }
 
 window.onload = function() {
-  onReady();
-};
+  onReady();};
